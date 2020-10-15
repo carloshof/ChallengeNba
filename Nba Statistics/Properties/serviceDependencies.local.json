@@ -1,0 +1,19 @@
+{
+  "dependencies": {
+    "secrets1": {
+      "type": "secrets.user"
+    },
+    "mssql1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/nbastatisticsdbserver/databases/Nba Statistics_db",
+      "type": "mssql.azure",
+      "connectionId": ":nbastatisticsdbserver",
+      "secretStore": "LocalSecretsFile"
+    },
+    "mssql2": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/nbastatisticsdbserver/databases/Nba Statistics_db",
+      "type": "mssql.azure",
+      "connectionId": "Nba_StatisticsContext",
+      "secretStore": "LocalSecretsFile"
+    }
+  }
+}
