@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Nba_Statistics.Data;
 using Nba_Statistics.Models;
+using Nba_Statistics.Services;
 
 namespace Nba_Statistics.Controllers
 {
+    
     [Route("api/[controller]")]
     [ApiController]
     public class PlayersController : ControllerBase
@@ -25,7 +26,15 @@ namespace Nba_Statistics.Controllers
         [HttpGet]
         public IEnumerable<Player> GetPlayer()
         {
-            return _context.Player;
+             var players = _context.Player;
+            List<Player> result = new List<Player>();
+            foreach (Player p in players.ToList()){
+                Player player = p;
+                player.Team = _context.Team.Find(p.TeamId);
+                result.Add(player);
+            }
+
+            return result;
         }
 
         // GET: api/Players/5
@@ -38,28 +47,31 @@ namespace Nba_Statistics.Controllers
             }
 
             var player = await _context.Player.FindAsync(id);
+           
 
             if (player == null)
             {
                 return NotFound();
             }
+            player.Team = await _context.Team.FindAsync(player.TeamId);
 
             return Ok(player);
         }
 
         // PUT: api/Players/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPlayer([FromRoute] int id, [FromBody] Player player)
+        public async Task<IActionResult> PutPlayer([FromRoute] int id, [FromBody] Player player, [FromQuery] Token token)
         {
+            AuthenticationService auth = new AuthenticationService(_context);
+            if (!auth.isValid(token.Key))
+                return Unauthorized();
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != player.Id)
-            {
-                return BadRequest();
-            }
+            player.Id = id;
 
             _context.Entry(player).State = EntityState.Modified;
 
@@ -84,13 +96,17 @@ namespace Nba_Statistics.Controllers
 
         // POST: api/Players
         [HttpPost]
-        public async Task<IActionResult> PostPlayer([FromBody] Player player)
+        public async Task<IActionResult> PostPlayer([FromBody] Player player, [FromQuery] Token token)
         {
+            AuthenticationService auth = new AuthenticationService(_context);
+            if (!auth.isValid(token.Key))
+                return Unauthorized();
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
+            player.Team = await _context.Team.FindAsync(player.TeamId);
             _context.Player.Add(player);
             await _context.SaveChangesAsync();
 
@@ -98,9 +114,14 @@ namespace Nba_Statistics.Controllers
         }
 
         // DELETE: api/Players/5
+        
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeletePlayer([FromRoute] int id)
+        public async Task<IActionResult> DeletePlayer([FromRoute] int id, [FromQuery] Token token)
         {
+            AuthenticationService auth = new AuthenticationService(_context);
+            if (!auth.isValid(token.Key))
+                return Unauthorized();
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);

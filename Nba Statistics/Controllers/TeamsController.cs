@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Nba_Statistics.Data;
 using Nba_Statistics.Models;
+using AuthenticationService = Nba_Statistics.Services.AuthenticationService;
 
 namespace Nba_Statistics.Controllers
 {
@@ -25,6 +25,7 @@ namespace Nba_Statistics.Controllers
         [HttpGet]
         public IEnumerable<Team> GetTeam()
         {
+
             return _context.Team;
         }
 
@@ -49,8 +50,12 @@ namespace Nba_Statistics.Controllers
 
         // PUT: api/Teams/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTeam([FromRoute] int id, [FromBody] Team team)
+        public async Task<IActionResult> PutTeam([FromRoute] int id, [FromBody] Team team, [FromQuery] Token token)
         {
+            AuthenticationService auth = new AuthenticationService(_context);
+            if (!auth.isValid(token.Key))
+                return Unauthorized();
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -84,8 +89,12 @@ namespace Nba_Statistics.Controllers
 
         // POST: api/Teams
         [HttpPost]
-        public async Task<IActionResult> PostTeam([FromBody] Team team)
+        public async Task<IActionResult> PostTeam([FromBody] Team team,[FromQuery] Token token)
         {
+            AuthenticationService auth = new AuthenticationService(_context);
+            if (!auth.isValid(token.Key))
+                return Unauthorized();
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -99,8 +108,12 @@ namespace Nba_Statistics.Controllers
 
         // DELETE: api/Teams/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteTeam([FromRoute] int id)
+        public async Task<IActionResult> DeleteTeam([FromRoute] int id, [FromQuery] Token token)
         {
+            AuthenticationService auth = new AuthenticationService(_context);
+            if (!auth.isValid(token.Key))
+                return Unauthorized();
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);

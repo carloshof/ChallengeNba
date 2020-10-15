@@ -10,6 +10,7 @@ namespace Nba_Statistics.Models
         public int Rebounds { get; set; }
         public int Assists { get; set; }
         public Team Team { get; set; }
+        public int TeamId { get; set; }
 
         public Player()
         {

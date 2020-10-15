@@ -5,6 +5,12 @@
       "type": "mssql.azure",
       "connectionId": ":nbastatisticsdbserver",
       "secretStore": "AzureAppSettings"
+    },
+    "mssql2": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/nbastatisticsdbserver/databases/Nba Statistics_db",
+      "type": "mssql.azure",
+      "connectionId": "Nba_StatisticsContext",
+      "secretStore": "AzureAppSettings"
     }
   }
 }

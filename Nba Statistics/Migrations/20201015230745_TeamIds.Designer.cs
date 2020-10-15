@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Nba_Statistics.Data;
 
 namespace Nba_Statistics.Migrations
 {
     [DbContext(typeof(Nba_StatisticsContext))]
-    partial class Nba_StatisticsContextModelSnapshot : ModelSnapshot
+    [Migration("20201015230745_TeamIds")]
+    partial class TeamIds
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
