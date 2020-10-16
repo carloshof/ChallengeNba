@@ -105,8 +105,8 @@ Aqui estão presente os jogadores e suas estatísticas.
   },
   "teamId": 1
 }
-
   `
+
   
 ### Criar novo jogador [POST]
 + Rota: https://nbastatistics20201013222633.azurewebsites.net/api/players?key=api_key
