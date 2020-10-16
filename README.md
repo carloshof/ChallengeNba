@@ -274,11 +274,13 @@ Aqui estão presentes os times e suas estatísticas.
 + Response 200 (application/json)
 
   `
+  
 {
   "id": 1,
   "name": "Portland",
   "championships": 5
 }
+
   `
 
 ### Criar novo Time [POST]
@@ -315,11 +317,13 @@ Aqui estão presentes os times e suas estatísticas.
 + Response 200 (application/json)
 
 `
+
 {
   "id": 3,
   "name": "Lakers",
   "championships": 10
 }
+
   `
 
 
