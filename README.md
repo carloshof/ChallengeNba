@@ -150,8 +150,8 @@ Aqui estão presente os jogadores e suas estatísticas.
 + Request (application/json)
 
 + Response 200 (application/json)
-
-  `
+ 
+ `
 {
   "id": 2,
   "name": "Rodrigo Bryant",
@@ -161,7 +161,7 @@ Aqui estão presente os jogadores e suas estatísticas.
   "team": null,
   "teamId": 1
 }
-  `
+`
 
 ### Alterar jogador [PUT/{id}]
 + Rota: https://nbastatistics20201013222633.azurewebsites.net/api/players/{id}?key=api_key
@@ -194,7 +194,7 @@ Endpoint bonus que retorna o Rei (valor mockado)
 
 + Response 200 (application/json)
 
-  `
+`
 {
   "id": 23,
   "name": "Lebron James",
@@ -208,8 +208,7 @@ Endpoint bonus que retorna o Rei (valor mockado)
   },
   "teamId": 0
 }
-
-  `
+`
   
 # Top Players [/topplayers]
 ### Endpoint que possibilita a recuperação dos melhores jogadores cadastrados, possivel utilizar filtros [GET]
@@ -273,14 +272,13 @@ Aqui estão presentes os times e suas estatísticas.
 
 + Response 200 (application/json)
 
-  `
   
+`  
 {
   "id": 1,
   "name": "Portland",
   "championships": 5
 }
-
   `
 
 ### Criar novo Time [POST]
@@ -317,14 +315,12 @@ Aqui estão presentes os times e suas estatísticas.
 + Response 200 (application/json)
 
 `
-
 {
   "id": 3,
   "name": "Lakers",
   "championships": 10
 }
-
-  `
+ `
 
 
 ### Alterar Time [PUT/{id}]
